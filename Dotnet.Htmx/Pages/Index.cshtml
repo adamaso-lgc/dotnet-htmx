@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Task CRUD with htmx";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Task CRUD</h1>
+
+    <!-- Create Task -->
+    <form hx-post="/Index?handler=AddTask" hx-swap="outerHTML">
+        <input type="text" name="Title" placeholder="Task Title" />
+        <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Task List -->
+    <ul id="taskList">
+        @foreach (var task in Model.Tasks)
+        {
+            <li>
+                <span>@task.Title</span>
+                <button hx-post="/Index?handler=DeleteTask" hx-params="id=@task.Id" hx-target="closest li" hx-swap="remove">
+                    Delete
+                </button>
+                <button hx-post="/Index?handler=UpdateTask" hx-params="id=@task.Id" hx-target="closest li" hx-swap="outerHTML">
+                    Toggle Complete
+                </button>
+            </li>
+        }
+    </ul>
+</div>
