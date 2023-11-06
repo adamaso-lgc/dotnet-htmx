@@ -4,28 +4,18 @@
     ViewData["Title"] = "Task CRUD with htmx";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Task CRUD</h1>
+<h2>Tasks</h2>
 
-    <!-- Create Task -->
-    <form hx-post="/Index?handler=AddTask" hx-swap="outerHTML">
-        <input type="text" name="Title" placeholder="Task Title" />
-        <button type="submit">Add Task</button>
-    </form>
+<form method="post" hx-post="?handler=Create" hx-target="#tasksTable" hx-swap="outerHTML">
+    <input type="text" asp-for="TaskItem.Title" placeholder="Task Title" />
+    <label>
+        <input type="checkbox" asp-for="TaskItem.IsComplete" /> Completed
+    </label>
+    <input type="submit" value="Add Task" />
+</form>
 
-    <!-- Task List -->
-    <ul id="taskList">
-        @foreach (var task in Model.Tasks)
-        {
-            <li>
-                <span>@task.Title</span>
-                <button hx-post="/Index?handler=DeleteTask" hx-params="id=@task.Id" hx-target="closest li" hx-swap="remove">
-                    Delete
-                </button>
-                <button hx-post="/Index?handler=UpdateTask" hx-params="id=@task.Id" hx-target="closest li" hx-swap="outerHTML">
-                    Toggle Complete
-                </button>
-            </li>
-        }
-    </ul>
+<div id="tasksTable">
+    <partial name="_TaskItemsTable" model="Model.TaskItems" />
 </div>
+
+<div id="editTaskItem"></div>

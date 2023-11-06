@@ -1,0 +1,26 @@
+@model IEnumerable<TaskItem>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Completed</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>
+                <input type="checkbox" disabled="disabled" @(item.IsComplete ? "checked" : "") />
+            </td>
+            <td>
+                <button hx-get="?handler=Edit&id=@item.Id" hx-target="#editTaskItem" hx-swap="outerHTML">Edit</button>
+                <button hx-post="?handler=Delete&id=@item.Id" hx-target="#tasksTable" hx-swap="outerHTML">Delete</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

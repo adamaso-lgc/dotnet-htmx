@@ -1,0 +1,8 @@
+@model TaskItem
+
+<form method="post" hx-post="?handler=Update&id=@Model.Id" hx-target="#tasksTable" hx-swap="outerHTML">
+    <input type="hidden" asp-for="Id" />
+    <input type="text" asp-for="Title" />
+    <input type="checkbox" asp-for="IsComplete" />
+    <input type="submit" value="Save" />
+</form>

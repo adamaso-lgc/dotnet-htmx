@@ -5,7 +5,7 @@ namespace Dotnet.Htmx.Pages;
 
 public class Counter : PageModel
 {
-    private static int count = 0;
+    private int count = 0;
         
     public void OnGet()
     {
@@ -15,8 +15,6 @@ public class Counter : PageModel
 
     public IActionResult OnPost()
     {
-        // TODO: Increment the count on each request
-        // hint: {count++}
         return Content($"<span>{count++}</span>", "text/html");
     }
 }
